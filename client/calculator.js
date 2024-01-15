@@ -131,3 +131,25 @@ deleteButton.addEventListener("click", (button) => {
   calculator.delete();
   calculator.updateDisplay();
 });
+
+const getAnswer = () => {
+  axios.get("http://localhost:8080/api/answer").then((res) => {
+    const { getDisplayNumber } = res;
+    alert(getDisplayNumber);
+  });
+};
+
+const postAnswer = () => {
+  const getDisplayNumber = updateDisplay.value;
+  axios.get(
+    "http://localhost:8080/api/display",
+    { getDisplayNumber }.then((res) => {
+      const { status } = res;
+      if (status === 200) {
+        alert(getDisplayNumber);
+      } else {
+        alert("Error");
+      }
+    })
+  );
+};
