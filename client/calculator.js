@@ -139,17 +139,8 @@ const getAnswer = () => {
   });
 };
 
-const postAnswer = () => {
-  const getDisplayNumber = updateDisplay.value;
-  axios.get(
-    "http://localhost:8080/api/display",
-    { getDisplayNumber }.then((res) => {
-      const { status } = res;
-      if (status === 200) {
-        alert(getDisplayNumber);
-      } else {
-        alert("Error");
-      }
-    })
-  );
+const postAnswer = (body) => {
+  axios.post("http://localhost:8080/api/answer", body).then(() => {
+    const { equalsButton, operationButtons, numberButtons } = body;
+  });
 };
