@@ -24,4 +24,11 @@ module.exports = {
         res.status(200).send(dbRes[0]);
       });
   },
+
+  postAnswer: (req, res) => {
+    sequelize.query("answer AS display").then((dbRes) => {
+      console.log("postAnswer was successful!");
+      res.status(200).send(dbRes[0]);
+    });
+  },
 };
