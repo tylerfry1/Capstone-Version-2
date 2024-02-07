@@ -26,9 +26,18 @@ module.exports = {
   },
 
   postAnswer: (req, res) => {
-    sequelize.query("answer AS display").then((dbRes) => {
-      console.log("postAnswer was successful!");
-      res.status(200).send(dbRes[0]);
-    });
+    const { numberButtons, operationButtons, equalsButtons } = req.body;
+    sequelize
+      .query(
+        `INSERT INTO display
+      (numberButtons, operationButtons, equalsButton)
+      VALUES
+      ('${numberButtons}',${operationButtons},${equalsButtons})
+      Returning *`
+      )
+      .then((dbRes) => {
+        console.log("postAnswer created");
+        res.status(200).send(dbRes[0]);
+      });
   },
 };
