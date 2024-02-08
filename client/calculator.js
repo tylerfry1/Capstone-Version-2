@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement;
@@ -139,8 +141,22 @@ const getAnswer = () => {
   });
 };
 
-const postAnswer = (body) => {
-  axios.post("http://localhost:8080/api/answer", body).then(() => {
-    const { equalsButton, operationButtons, numberButtons } = body;
-  });
-};
+document.getElementById("data-equals").addEventListener("click", function () {
+  var data = {
+    buttonData: "compute",
+  };
+  fetch("/submit_data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error", error);
+    });
+});
